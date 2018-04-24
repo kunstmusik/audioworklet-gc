@@ -5,6 +5,8 @@
     <title></title>
   </head>
   <body>
+    <input id="cbox" type="checkbox" name="cbox">
+    <label for="cbox">Enable GC Pressure</label>
     <script>
 
 
@@ -14,14 +16,18 @@
         sineGenerator.connect(context.destination);
       });
 
+      const cbox = document.getElementById("cbox");
+
 
       // create GC Pressure
 
-      var memBlock;  // global
+      var memBlock = new Float32Array(1);  // global
 
       setInterval(() => {
         // create large randomized memory blocks
-        memBlock = new Float32Array(100000 + Math.floor(10000000 * Math.random()));
+        if(cbox.checked) {
+          memBlock = new Float32Array(100000 + Math.floor(10000000 * Math.random()));
+        }
       }, 10);
 
       setInterval(() => {
